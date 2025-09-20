@@ -8,7 +8,7 @@ function refreshWeather(Response) {
   let humidityElement = document.querySelector("#humidity");
   let windSpeedElement = document.querySelector("#wind-speed");
   let timeElement = document.querySelector("#time");
-  let date = new Date(response.data.time * 1000);
+  let date = new Date(Response.data.time * 1000);
   let iconElement = document.querySelector("#icon");
 
   iconElement.innerHTML = `<img src="${Response.data.condition.icon_url}" class="weather-app-icon" />`;
