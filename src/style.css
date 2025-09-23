@@ -98,7 +98,8 @@ main {
   margin-bottom: 10px;
 }
 .weather-forecast-icon {
-  font-size: 35px;
+  width: 88px;
+  height: 88px;
   text-align: center;
 }
 
