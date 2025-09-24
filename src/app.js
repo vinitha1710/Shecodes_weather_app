@@ -1,4 +1,4 @@
-alert("Welcome to Vinith's Weather app");
+alert("Welcome to Vinitha's Weather app");
 
 function refreshWeather(Response) {
   let temperatureElement = document.querySelector("#temperature");
@@ -19,6 +19,8 @@ function refreshWeather(Response) {
   humidityElement.innerHTML = `${Response.data.temperature.humidity}%`;
   windSpeedElement.innerHTML = `${Response.data.wind.speed}mph`;
   temperatureElement.innerHTML = Math.round(temperature);
+
+  getForecast(Response.data.city);
 }
 
 function formatDate(date) {
@@ -53,6 +55,47 @@ function handleSearchSubmit(event) {
   let searchInput = document.querySelector("#search-form-input");
 
   searchCity(searchInput.value);
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+
+  return days[date.getDay()];
+}
+
+function getForecast(city) {
+  let apiKey = "dfb7a34o08287b67f88fe5bd29ta4408";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=imperial`;
+  axios(apiUrl).then(displayForecast);
+}
+
+function displayForecast(Response) {
+  let forecastHtml = "";
+
+  Response.data.daily.forEach(function (day) {
+    console.log(Response);
+    forecastHtml =
+      forecastHtml +
+      `
+      <div class="weather-forecast-day">
+            <div class="weather-forecast-date">${formatDay(day.time)}</div>
+            <div>
+            <img src="${day.condition.icon_url}" class="weather-forecast-icon"/>
+            </div>
+            <div class="weather-forecast-temp">
+              <div class="weather-forecast-temperature">
+                <strong>${Math.round(day.temperature.maximum)}°</strong>
+              </div>
+              <div class="weather-forecast-temperature">| ${Math.round(
+                day.temperature.minimum
+              )}°</div>
+            </div>
+          </div>
+          `;
+  });
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHtml;
 }
 
 let searchFormElement = document.querySelector("#search-form");
