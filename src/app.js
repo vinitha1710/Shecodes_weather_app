@@ -1,4 +1,4 @@
-alert("Welcome to Vinith's Weather app");
+alert("Welcome to Vinitha's Weather app");
 
 function refreshWeather(Response) {
   let temperatureElement = document.querySelector("#temperature");
@@ -61,7 +61,7 @@ function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
-  return days[date.getDate()];
+  return days[date.getDay()];
 }
 
 function getForecast(city) {
